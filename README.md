@@ -1,2 +1,2 @@
 # js-pong
-Pong recreation
+Pong recreation using p5.js
