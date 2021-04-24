@@ -17,11 +17,12 @@ function setup() {
 
   right = new Paddle;
   right.x = width - 30;
+
 }
 
 function keyReleased() {
   left.move(0);
-  right.move(0);
+  // right.move(0);
 }
 
 function keyPressed() {
@@ -32,13 +33,19 @@ function keyPressed() {
     left.move(10);
   }
 
-  if (key == 'k') {
-    right.move(-10);
-  }
-  if (key == 'm') {
-    right.move(10);
-  }
+  // if (key == 'k') {
+  //   right.move(-10);
+  // }
+  // if (key == 'm') {
+  //   right.move(10);
+  // }
   return false;
+}
+
+function ai(paddle) {
+  if (paddle.y +20 < puck.y) return paddle.move(4);
+  if (paddle.y -20 > puck.y) return paddle.move(-4); 
+  return paddle.move(0);
 }
 
 function draw() {
@@ -62,10 +69,11 @@ function draw() {
   left.update();
   left.show();
 
+
   right.update();
   right.show();
 
-
+  ai(right);
   showScore();
 
 }
