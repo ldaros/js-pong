@@ -5,7 +5,8 @@ class Puck {
         this.x_speed = 0;
         this.y_speed = 0;
         this.size = 8;
-
+        this.monoSynth = new p5.MonoSynth();
+        
         this.reset();
     }
 
@@ -13,6 +14,18 @@ class Puck {
         fill(255); 
         noStroke();
         ellipse(this.x, this.y, this.size * 2);
+    }
+
+    playSynth(note) {
+        userStartAudio();
+
+        let velocity = 2;
+        // time from now (in seconds)
+        let time = 0;
+        // note duration (in seconds)
+        let dur = 1/6;
+      
+        this.monoSynth.play(note, velocity, time, dur);
     }
 
     update_positon() {
@@ -23,12 +36,15 @@ class Puck {
     limit() {
         if (this.y < 0 || this.y > height) {
             this.y_speed *= -1;
+            this.playSynth("C3");
         }
         if (this.x > width) {
             this.reset();
+            this.playSynth("B5");
         }
         if (this.x < 0) {
             this.reset();
+            this.playSynth("B6");
         }
     }
 
@@ -59,6 +75,7 @@ class Puck {
                     this.x_speed = 5 * cos(angle);
                     this.y_speed = 5 * sin(angle);
                     this.x = left_p.x + left_p.width / 2 + this.size;
+                    this.playSynth("A5");
                 }
             }
         }
@@ -75,6 +92,7 @@ class Puck {
                     this.x_speed = 5 * cos(angle);
                     this.y_speed = 5 * sin(angle);
                     this.x = right_p.x - right_p.width / 2 - this.size;
+                    this.playSynth("A4");
                 }
             }
         }
